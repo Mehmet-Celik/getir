@@ -4,7 +4,7 @@
   "description": "The Challenge",
   "main": "app.js",
   "scripts": {
-    "start": "npm install node app"
+    "start": "node app.js"
   },
   "author": "Mehmet Hüseyin Çelik",
   "license": "ISC",
