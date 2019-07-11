@@ -1,12 +1,19 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const routes = require("./routes");
-require("./library/mongoose");
+const { connection } = require("./library/mongoose");
 
-const app = express();
-app.use(bodyParser.json());
-app.use("/", routes);
+connection.on("error", () => {
+    console.error("connection error");
+});
 
-// eslint-disable-next-line no-undef
-const port = process.env.PORT || 3000;
-app.listen(port, () => console.log("seni dinliyorum albayım"));
+connection.once("open", () => {
+    console.log("connection success");
+    const app = express();
+    app.use(bodyParser.json());
+    app.use("/", routes);
+
+    // eslint-disable-next-line no-undef
+    const port = process.env.PORT || 3000;
+    app.listen(port, () => console.log("seni dinliyorum albayım"));
+});
